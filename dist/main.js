@@ -65,6 +65,15 @@ for (let index in workerList) {
     else if(role === 'miner'){
         workerFunc(worker, index);
     }
+    else if(role === 'transporter'){
+        workerFunc(transporter,index);
+    }
+    else if(role === 'builder'){
+        workerFunc(builder,index);
+    }
+    else if(role === 'upgrader'){
+        workerFunc(upgrader, index);
+    }
 }
 
 if (workerList.length < workerCount) {

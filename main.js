@@ -1,6 +1,6 @@
 "use strict";
 
-var worker = require('worker');
+var workerFunc = require('worker');
 
 let spawn = Game.spawns.Spawn1;
 let sources = spawn.room.find(FIND_SOURCES);
@@ -19,20 +19,30 @@ for (let index in workerList) {
     	activeWorkerList.push(workerName);
     }
 }
-
+if(Memory.miners >= sources.length){
+    Memory.miners = 0;
+}
 workerList = activeWorkerList;
 let spawnWorker = function() {
     let body = [MOVE, CARRY, WORK, WORK];
-    let success = spawn.createCreep(body);
+    let success = spawn.createCreep(body,{role: 'miner', modulo: Memory.miners});
     if (_.isString(success)) {
 	workerList.push(success);
+	Memory.miners++;
     };
 };
 
 for (let index in workerList) {
     let workerName = workerList[index];
     let worker = Game.creeps[workerName];
-    worker(worker, index);
+    let role = worker.memory.role;
+    
+    if(role === undefined){
+        workerFunc(worker, index);
+    }
+    else if(role === 'miner'){
+        minerFunc
+    }
 }
 
 
