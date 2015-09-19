@@ -1,10 +1,14 @@
 "use strict";
 
 module.exports = function(creep){
+    var mineSource = Game.getObjectById(creep.memory.source);
     
-    var sources = creep.room.find(FIND_SOURCES);
+    if(!mineSource){
+        var sources = creep.room.find(FIND_SOURCES);
+        creep.memory.source = sources[creep.memory.modulo].id;
+    }
     
-    if (creep.harvest(sources[creep.memory.modulo]) == -9){
-        creep.moveTo(sources[creep.memory.modulo]);
+    if (creep.harvest(mineSource) == -9){
+        creep.moveTo(mineSource);
     }
 };

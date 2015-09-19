@@ -29,7 +29,7 @@ for(var name in Game.creeps){
 var workerFunc = require('worker');
 
 let spawn = Game.spawns.Spawn1;
-let sources = spawn.find(FIND_SOURCES);
+let sources = spawn.room.find(FIND_SOURCES);
 let workerCount = 5;
 
 let workerList = Memory.workerList || [];
