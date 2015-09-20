@@ -1,5 +1,5 @@
 "use strict";
-
+//Builder + upgrader when nothing to build
 module.exports = function(creep){
     let spawn = Game.spawns.Spawn1;
     let targets = creep.room.find(FIND_CONSTRUCTION_SITES);

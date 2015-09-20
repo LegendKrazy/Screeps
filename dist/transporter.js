@@ -7,8 +7,7 @@ module.exports = function(creep){
     	if(!Memory.transporters || Memory.transporters >= Memory.bots.miner.length){
     		Memory.transporters = 0;
     	}
-    	let modulo = Memory.transporters;
-    	miner = Memory.bots.miner[modulo];
+    	miner = Memory.bots.miner[creep.memory.modulo];
     	creep.memory.miner = miner;
     	miner = Game.creeps[miner];
     	Memory.transporters++;

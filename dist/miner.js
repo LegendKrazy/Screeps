@@ -1,5 +1,5 @@
 "use strict";
-
+//standard miner
 module.exports = function(creep){
     var mineSource = Game.getObjectById(creep.memory.source);
     
