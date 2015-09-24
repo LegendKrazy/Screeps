@@ -44,7 +44,7 @@ if(Memory.transporters >= Memory.bots.miner.length){
 for (var name in Game.creeps) {
     let creep = Game.creeps[name];
     let role = creep.memory.role;
-    
+
     if(role === 'miner'){
         minerFunc(creep);
     }

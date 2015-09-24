@@ -3,24 +3,26 @@ module.exports = function(creep){
     var spawn = Game.spawns.Spawn1;
     var miner = Game.creeps[creep.memory.miner];
     
-    if(!miner){
+    if(!miner || miner == undefined){
     	if(!Memory.transporters || Memory.transporters >= Memory.bots.miner.length){
     		Memory.transporters = 0;
     	}
-    	miner = Memory.bots.miner[creep.memory.modulo];
+    	miner = Memory.bots.miner[Memory.transporters];
     	creep.memory.miner = miner;
     	miner = Game.creeps[miner];
     	Memory.transporters++;
     }
     
-    if(!target || target.energy == target.energyCapacity){
+    else if(!target || target.energy == target.energyCapacity){
     	var storages = creep.room.find(FIND_MY_STRUCTURES, {
     		filter: function(s){
     			return s.energy < s.energyAvailable;
     		}
     	});
-    	target = storages[0];
-    	creep.memory.target = storages[0].id;
+    	if(storages.length > 0){
+	    	target = storages[0];
+	    	creep.memory.target = target.id;
+    	}
     }
     else if(creep.carry.energy < creep.carryCapacity){
 		creep.moveTo(miner);
