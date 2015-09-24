@@ -41,3 +41,15 @@ module.exports=function (worker, index) {
 	}
     }
 };
+
+//find nearest storage
+//*var target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: function(object) {
+            return object.hits < object.hitsMax && object.structureType === STRUCTURE_ROAD;
+        }
+        });
+        if(target) {
+            creep.say('repairing');
+            creep.moveTo(target);
+            creep.repair(target);
+        } *

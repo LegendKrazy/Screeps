@@ -7,7 +7,8 @@ module.exports = function(creep){
         if(spawn.room.energyAvailable === 300){
             spawn.transferEnergy(creep);
         }
-    }else{
+    }
+    else{
         creep.moveTo(spawn.room.controller);
 	    creep.upgradeController(spawn.room.controller);
     }  

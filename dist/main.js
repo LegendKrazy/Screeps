@@ -6,7 +6,7 @@ var minerFunc = require("miner");
 var transporterFunc = require("transporter");
 var builderFunc = require('builder');
 var upgraderFunc = require('upgrader');
-var skirmisherFunc = require("skirmisher");
+var janitorFunc = require("janitor");
 
 hooks();
 for(var name in Memory.creeps){
@@ -17,19 +17,23 @@ for(var name in Memory.creeps){
 for(var name in Game.creeps){
     let creep = Game.creeps[name];
     Memory.bots[creep.memory.role].push(name);
-}
+}  
 if(Memory.bots.miner.length < 2){
     autospawn.createMiner();
 }
-if(Memory.bots.upgrader.length < 3){
+if(Memory.bots.upgrader.length < 2){
     autospawn.createUpgrader();
 }
 if(Memory.bots.transporter.length < 2){
     autospawn.createTransporter();
 }
-if(Memory.bots.builder.length < 2){
+if(Memory.bots.builder.length < 1){
     autospawn.createBuilder();
 }
+if(Memory.bots.janitor.length < 1){
+    autospawn.createJanitor();
+}
+
 
 let spawn = Game.spawns.Spawn1;
 let sources = spawn.room.find(FIND_SOURCES);
@@ -57,7 +61,7 @@ for (var name in Game.creeps) {
     else if(role === 'upgrader'){
         upgraderFunc(creep);
     }
-    else if(role === 'skirmisher'){
-        skirmisherFunc(creep);
+    else if(role === 'janitor'){
+        janitorFunc(creep);
     }
 };

@@ -3,8 +3,7 @@ module.exports = function(){
         miner: [],
         transporter: [],
         builder: [],
-        skirmisher: [],
         upgrader: [],
-        worker: []
+        janitor: []
     };
 };
