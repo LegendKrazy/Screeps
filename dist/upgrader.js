@@ -2,6 +2,7 @@
 
 module.exports = function(creep){
     let spawn = Game.spawns.Spawn1;
+
     if (creep.carry.energy == 0){
         creep.moveTo(spawn);
         if(spawn.room.energyAvailable === 300){
