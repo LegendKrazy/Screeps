@@ -52,4 +52,4 @@ module.exports=function (worker, index) {
             creep.say('repairing');
             creep.moveTo(target);
             creep.repair(target);
-        } *
+        } 

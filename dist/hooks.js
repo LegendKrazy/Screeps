@@ -4,6 +4,8 @@ module.exports = function(){
         transporter: [],
         builder: [],
         upgrader: [],
-        janitor: []
+        janitor: [],
+        repairer: [],
+        shuttle: []
     };
 };

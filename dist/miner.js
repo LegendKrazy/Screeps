@@ -1,7 +1,13 @@
 "use strict";
 //standard miner
 module.exports = function(creep){
-    var mineSource = Game.getObjectById(creep.memory.source);
+    let mineSource = Game.getObjectById(creep.memory.source);
+    let assignedTransporter = Game.getObjectById(creep.memory.transporter);
+    
+	//if assignedTransporter does not exist....
+	if(!assignedTransporter){
+		delete creep.memory.transporter;
+	}
     if (creep.harvest(mineSource) == -9){
         creep.moveTo(mineSource);
     }
