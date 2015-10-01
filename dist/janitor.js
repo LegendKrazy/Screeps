@@ -8,6 +8,11 @@ module.exports = function(creep){
             && s.energy < s.energyCapacity;
         }
 });
+    let storage = creep.room.find(FIND_MY_STRUCTURES, {
+        filter: function(s) {
+            return s.structureType == STRUCTURE_STORAGE && s.store.energy > 0;
+        }
+});
 if(creep.carry.energy === 0){
     creep.memory.state = "pickup";
 }
@@ -32,6 +37,10 @@ else if(creep.memory.state === 'dropoff'){
     else if(storages.length > 0){
         creep.moveTo(storages[0]);
         creep.transferEnergy(storages[0]);
+    }
+    else{
+        creep.moveTo(storage[0]);
+        creep.transferEnergy(storage[0]);
     }
 }
 };

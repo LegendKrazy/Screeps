@@ -25,10 +25,10 @@ if(Memory.bots.miner.length < 2){
 if(Memory.bots.transporter.length < 2){
     autospawn.createTransporter();
 }
-if(Memory.bots.upgrader.length < 2){
+if(Memory.bots.upgrader.length < 1){
     autospawn.createUpgrader();
 }
-if(Memory.bots.builder.length < 2){
+if(Memory.bots.builder.length < 1){
     autospawn.createBuilder();
 }
 if(Memory.bots.janitor.length < 3){
@@ -74,6 +74,6 @@ for (var name in Game.creeps) {
         repairerFunc(creep);
     }
     else if (role === 'shuttle'){
-        repairerFunc(creep);
+        shuttleFunc(creep);
     }
 }

@@ -31,7 +31,7 @@ module.exports = function(creep) {
 		else {
 			let storages = creep.room.find(FIND_MY_STRUCTURES, {
 				filter: function(s) {
-					return s.structureType == STRUCTURE_EXTENSION && s.energy < s.energyCapacity;
+					return s.structureType == STRUCTURE_STORAGE && s.store.energy < s.store.energyCapacity;
 				}
 			});
 			if (storages.length > 0)

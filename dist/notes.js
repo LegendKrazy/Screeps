@@ -1,5 +1,15 @@
-"use strict";
+//NOTES
 
+/*Find the closest empty extension to fill.
+let notFullExtensionList = creep.room.find(FIND_MY_STRUCTURES, {
+	filter: function(s) {
+		return s.structureType == STRUCTURE_EXTENSION && s.energy < s.energyCapacity;
+		}
+	});
+_.min(notFullExtensionList, ext => ext.theAPIToGetDistance(creep))
+*/
+"use strict";
+//No longer in use! 
 const MINING_ACTION = 1;
 const COURIER_ACTION = 2;
 
