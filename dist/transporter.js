@@ -42,7 +42,7 @@ module.exports = function(creep) {
 	//if creep's not full go to the miner and fill up
 	if (creep.carry.energy < creep.carryCapacity) {
 		if (!creep.pos.isNearTo(assignedMiner)) {
-			creep.moveTo(assignedMiner);
+			creep.moveTo(assignedMiner, {reusePath: 15});
 			
 		}else {
 			creep.pickup(assignedMiner);
@@ -51,7 +51,7 @@ module.exports = function(creep) {
 	//otherwise head back to the storage site
 	} else {
 		if (!creep.pos.isNearTo(store))
-			creep.moveTo(store);
+			creep.moveTo(store, {reusePath: 15});
 		else
 			creep.transferEnergy(store);
 	}

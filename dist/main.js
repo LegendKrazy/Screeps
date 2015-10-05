@@ -25,13 +25,13 @@ if(Memory.bots.miner.length < 2){
 if(Memory.bots.transporter.length < 2){
     autospawn.createTransporter();
 }
-if(Memory.bots.upgrader.length < 1){
+if(Memory.bots.upgrader.length < 2){
     autospawn.createUpgrader();
 }
-if(Memory.bots.builder.length < 1){
+if(Memory.bots.builder.length < 2){
     autospawn.createBuilder();
 }
-if(Memory.bots.janitor.length < 3){
+if(Memory.bots.janitor.length < 2){
     autospawn.createJanitor();
 }
 if(Memory.bots.repairer.length < 2){

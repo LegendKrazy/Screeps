@@ -1,18 +1,15 @@
 "use strict";
 module.exports = function(creep){
     let spawn = Game.spawns.Spawn1;
-    let droppedEnergy = creep.room.find(FIND_DROPPED_ENERGY, 1);
-    let storages = creep.room.find(FIND_MY_STRUCTURES, {
+    let storage = creep.room.storage;
+    let droppedEnergy = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
+    let extensions = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
         filter: function(s) {
             return s.structureType == STRUCTURE_EXTENSION
             && s.energy < s.energyCapacity;
         }
 });
-    let storage = creep.room.find(FIND_MY_STRUCTURES, {
-        filter: function(s) {
-            return s.structureType == STRUCTURE_STORAGE && s.store.energy > 0;
-        }
-});
+    
 if(creep.carry.energy === 0){
     creep.memory.state = "pickup";
 }
@@ -24,23 +21,23 @@ else if(creep.memory.state === undefined){
 }
 
 if(creep.memory.state === 'pickup'){
-    if(droppedEnergy.length > 0){
-        creep.moveTo(droppedEnergy[0]);
-        creep.pickup(droppedEnergy[0]);
+    if(droppedEnergy){
+        creep.moveTo(droppedEnergy, {reusePath: 15});
+        creep.pickup(droppedEnergy);
     } 
 }
 else if(creep.memory.state === 'dropoff'){
     if(spawn.energy < spawn.energyCapacity){
-        creep.moveTo(spawn);
+        creep.moveTo(spawn, {reusePath: 15});
         creep.transferEnergy(spawn);
     }
-    else if(storages.length > 0){
-        creep.moveTo(storages[0]);
-        creep.transferEnergy(storages[0]);
+    else if(storage){
+        creep.moveTo(storage, {reusePath: 15});
+        creep.transferEnergy(storage);
     }
     else{
-        creep.moveTo(storage[0]);
-        creep.transferEnergy(storage[0]);
+        creep.moveTo(extensions, {reusePath: 15});
+        creep.transferEnergy(extensions);
     }
 }
 };
