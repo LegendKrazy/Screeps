@@ -8,6 +8,12 @@ var upgraderFunc = require('upgrader');
 var janitorFunc = require('janitor');
 var repairerFunc = require("repairer");
 var shuttleFunc = require("shuttle");
+var defenderFunc = require("defender");
+var linkerFunc = require("linker");
+var linkFrom = Game.spawns.Spawn1.room.lookForAt('structure', 42, 11)[0];
+var linkTo = Game.spawns.Spawn1.room.lookForAt('structure', 15, 34)[0];
+
+
 
 hooks();
 for(var name in Memory.creeps){
@@ -28,17 +34,23 @@ if(Memory.bots.transporter.length < 2){
 if(Memory.bots.upgrader.length < 2){
     autospawn.createUpgrader();
 }
-if(Memory.bots.builder.length < 2){
+if(Memory.bots.builder.length < 1){
     autospawn.createBuilder();
 }
-if(Memory.bots.janitor.length < 2){
+if(Memory.bots.janitor.length < 1){
     autospawn.createJanitor();
 }
-if(Memory.bots.repairer.length < 2){
+if(Memory.bots.repairer.length < 1){
     autospawn.createRepairer();
 }
 if(Memory.bots.shuttle.length < 1){
     autospawn.createShuttle();
+}
+if(Memory.bots.defender.length < 0){
+    autospawn.createDefender();
+}
+if(Memory.bots.linker.length < 1){
+    autospawn.createLinker();
 }
 
 
@@ -76,4 +88,15 @@ for (var name in Game.creeps) {
     else if (role === 'shuttle'){
         shuttleFunc(creep);
     }
+    else if (role === 'defender'){
+        defenderFunc(creep);
+    }
+    else if (role === 'linker'){
+        linkerFunc(creep);
+    }
+}
+
+//link transfer
+if(linkFrom){
+    linkFrom.transferEnergy(linkTo);
 }

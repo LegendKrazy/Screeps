@@ -6,6 +6,8 @@ module.exports = function(){
         upgrader: [],
         janitor: [],
         repairer: [],
-        shuttle: []
+        shuttle: [],
+        defender: [],
+        linker: []
     };
 };

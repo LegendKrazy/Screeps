@@ -3,7 +3,7 @@ module.exports = function(creep){
 let structures = creep.pos.findClosestByRange(FIND_STRUCTURES, {
         filter: function(s) {
             var IS_MY_STRUCTURE = s.owner !== undefined && s.owner.username === 'Wimbley';
-            var HAS_LOW_HEALTH = s.hits < (s.hitsMax * 0.02);
+            var HAS_LOW_HEALTH = s.hits < (s.hitsMax * 0.03);
             return (s.structureType == STRUCTURE_WALL || IS_MY_STRUCTURE) && HAS_LOW_HEALTH;
         }
 });
