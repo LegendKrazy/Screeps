@@ -3,12 +3,10 @@ module.exports = function(creep){
     let spawn = Game.spawns.Spawn1;
     let storage = creep.room.storage;
     let droppedEnergy = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
-    let extensions = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {
-        filter: function(s) {
+    let extensions = creep.pos.findClosestByRange(FIND_MY_STRUCTURES, {filter: function(s){
             return s.structureType == STRUCTURE_EXTENSION
             && s.energy < s.energyCapacity;
-        }
-});
+        }});
     
 if(creep.carry.energy === 0){
     creep.memory.state = "pickup";
