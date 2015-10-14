@@ -8,6 +8,7 @@ module.exports = function(){
         repairer: [],
         shuttle: [],
         defender: [],
-        linker: []
+        linker: [],
+        roadworker: []
     };
 };

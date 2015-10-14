@@ -1,7 +1,7 @@
 "use strict";
 //standard miner
 module.exports = function(creep){
-    let mineSource = Game.getObjectById(creep.memory.source);
+    let mineSource = Game.getObjectById('55c34a6c5be41a0a6e80ca04');
     let assignedTransporter = Game.getObjectById(creep.memory.transporter);
     
 	//if assignedTransporter does not exist....

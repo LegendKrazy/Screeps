@@ -5,8 +5,8 @@ module.exports = function(creep){
     let constructionSites = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
     let structures = creep.room.find(FIND_MY_STRUCTURES, {
         filter: function(s) {
-            var IS_MY_STRUCTURE = s.owner !== undefined && s.owner.username === 'Wimbley';
-            var HAS_LOW_HEALTH = s.hits < s.hitsMax;
+            var IS_MY_STRUCTURE = s.owner !== undefined && s.owner.username === 'LegendKrazy';
+            var HAS_LOW_HEALTH = s.hits < (s.hitsMax * 0.30);
             return (s.structureType == STRUCTURE_RAMPART || IS_MY_STRUCTURE) && HAS_LOW_HEALTH;
         }
 });

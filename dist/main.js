@@ -12,8 +12,9 @@ var defenderFunc = require("defender");
 var linkerFunc = require("linker");
 var linkFrom = Game.spawns.Spawn1.room.lookForAt('structure', 42, 11)[0];
 var linkTo = Game.spawns.Spawn1.room.lookForAt('structure', 15, 34)[0];
-
-
+var creepWork = require("creep");
+var mining = require("mining");
+var roadworkerFunc = require("roadworker");
 
 hooks();
 for(var name in Memory.creeps){
@@ -23,24 +24,26 @@ for(var name in Memory.creeps){
 }
 for(var name in Game.creeps){
     let creep = Game.creeps[name];
+    if (creep.memory.role) {
         Memory.bots[creep.memory.role].push(creep.id);
+    }
 }  
-if(Memory.bots.miner.length < 2){
+if(Memory.bots.miner.length < 1){
     autospawn.createMiner();
 }
-if(Memory.bots.transporter.length < 2){
+if(Memory.bots.transporter.length < 1){
     autospawn.createTransporter();
 }
-if(Memory.bots.upgrader.length < 2){
+if(Memory.bots.upgrader.length < 4){
     autospawn.createUpgrader();
 }
-if(Memory.bots.builder.length < 1){
+if(Memory.bots.builder.length < 2){
     autospawn.createBuilder();
 }
 if(Memory.bots.janitor.length < 1){
     autospawn.createJanitor();
 }
-if(Memory.bots.repairer.length < 1){
+if(Memory.bots.repairer.length < 0){
     autospawn.createRepairer();
 }
 if(Memory.bots.shuttle.length < 1){
@@ -51,6 +54,9 @@ if(Memory.bots.defender.length < 0){
 }
 if(Memory.bots.linker.length < 1){
     autospawn.createLinker();
+}
+if(Memory.bots.roadworker.length < 1){
+    autospawn.createRoadworker();
 }
 
 
@@ -94,9 +100,16 @@ for (var name in Game.creeps) {
     else if (role === 'linker'){
         linkerFunc(creep);
     }
+    else if (role === 'roadworker'){
+        roadworkerFunc(creep);
+    }
 }
 
 //link transfer
 if(linkFrom){
     linkFrom.transferEnergy(linkTo);
 }
+var storageConfig = {x:15, y:36};
+var config = {miningFlag:"FlagBottom", minerCount:1, courierCount:1, destRoom:"E19S2", storage:storageConfig};
+
+mining (config);

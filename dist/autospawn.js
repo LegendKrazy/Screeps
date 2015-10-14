@@ -5,11 +5,11 @@ var energyAvailable = spawn.room.energyAvailable;
 var spawnType = {
     createMiner: function(){
         var success = false;
-        if(energyAvailable >=750){
-            success = spawn.createCreep([WORK,WORK,WORK,WORK,WORK,WORK,MOVE,MOVE,MOVE],{role: 'miner', modulo: Memory.miners});
+        if(energyAvailable >=650){
+            success = spawn.createCreep([WORK,WORK,WORK,WORK,WORK,MOVE,MOVE,MOVE],{role: 'miner', modulo: Memory.miners});
         }
         else if(energyAvailable >= 300){
-            success = spawn.createCreep([WORK,WORK,CARRY,MOVE],{role: 'miner', modulo: Memory.miners});
+            success = spawn.createCreep([WORK,WORK,MOVE,MOVE],{role: 'miner', modulo: Memory.miners});
         }
         if(_.isString(success)){
             Memory.miners++;
@@ -50,7 +50,10 @@ var spawnType = {
     },
     createBuilder: function(){
         var success = false;
-        if(energyAvailable >= 500){
+        if(energyAvailable >= 700){
+            success = spawn.createCreep([MOVE,MOVE,MOVE,CARRY,CARRY,CARRY,WORK,WORK,WORK,WORK],{role: 'builder'});
+        }
+        else if(energyAvailable >= 500){
             success = spawn.createCreep([MOVE,MOVE,CARRY,CARRY,WORK,WORK,WORK],{role: 'builder'});
         }
         else if(energyAvailable >= 300){
@@ -62,7 +65,13 @@ var spawnType = {
     },
     createUpgrader: function(){
         var success = false;
-        if(energyAvailable >= 650){
+        if(energyAvailable >= 1400){
+            success = spawn.createCreep([MOVE,MOVE,MOVE,CARRY,CARRY,CARRY,CARRY,CARRY,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK],{role: 'upgrader'});
+        }
+        else if(energyAvailable >= 1000){
+            success = spawn.createCreep([MOVE,MOVE,MOVE,CARRY,CARRY,CARRY,CARRY,CARRY,WORK,WORK,WORK,WORK,WORK,WORK],{role: 'upgrader'});
+        }
+        else if(energyAvailable >= 650){
             success = spawn.createCreep([MOVE,MOVE,MOVE,CARRY,CARRY,CARRY,CARRY,WORK,WORK,WORK],{role: 'upgrader'});
         }
         else if(energyAvailable >= 500){
@@ -92,7 +101,10 @@ var spawnType = {
     },
     createRepairer: function(){
         var success = false;
-        if(energyAvailable >= 700){
+        if(energyAvailable >= 1050){
+            success = spawn.createCreep([MOVE, MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, CARRY, CARRY, WORK, WORK, WORK, WORK, WORK, WORK],{role: 'repairer'});
+        }
+        else if(energyAvailable >= 700){
             success = spawn.createCreep([MOVE, MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK],{role: 'repairer'});
         }
         else if(energyAvailable >= 500){
@@ -155,6 +167,21 @@ var spawnType = {
         }
         if(_.isString(success)){
             Memory.linkers++;
+        }
+    },
+    createRoadworker: function(){
+        var success = false;
+        if(energyAvailable >=900){
+            success = spawn.createCreep([MOVE,MOVE,MOVE,MOVE,CARRY,CARRY,CARRY,CARRY,CARRY,WORK,WORK,WORK,WORK],{role: 'roadworker'});
+        }
+        else if(energyAvailable >=600){
+            success = spawn.createCreep([MOVE,MOVE,MOVE,CARRY,CARRY,CARRY,WORK,WORK,WORK],{role: 'roadworker'});
+        }
+        else if(energyAvailable >=300){
+            success = spawn.createCreep([MOVE,MOVE,CARRY,CARRY,WORK],{role: 'roadworker'});
+        }
+        if(_.isString(success)){
+            Memory.roadworkers++;
         }
     }
 };
