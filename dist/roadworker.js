@@ -16,7 +16,7 @@ module.exports = function(creep) {
 		let target = Game.getObjectById(creep.memory.targetId);
 		if (target == null) {
 			let roadToRepair = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: function(object) {
-					return object.structureType == STRUCTURE_ROAD && (object.hits < object.hitsMax * 0.40);
+					return object.structureType == STRUCTURE_ROAD && (object.hits < object.hitsMax * 0.25);
 				}});
 			if (roadToRepair == null)
 				return;

@@ -20,23 +20,20 @@ module.exports = function(creep) {
 		}
 	}
 	//if creep's not full go to the miner and fill up
-	if (creep.carry.energy < creep.carryCapacity) {
+	if(creep.carry.energy < creep.carryCapacity){
 		if (!creep.pos.isNearTo(assignedMiner)) {
 			creep.moveTo(assignedMiner, {reusePath: 15});
 		}else{
 			assignedMiner.transferEnergy(creep);
 			creep.pickup(droppedEnergy);
 		}
-	}
-	//otherwise head back to the storage site
+	}	//otherwise head back to the storage site
 	 else {
 		//if creep is not near storage but near the link, move to the spot between link and miner then transfer
 		if (!creep.pos.isNearTo(storage) && creep.pos.isNearTo(41,12)){
 			creep.moveTo(41,12, {reusePath: 15});
         	creep.transferEnergy(linkOne);
-        }
-		
-		//if creep is not near either storage and miner, move to the storage to transfer
+        } //if creep is not near either storage and miner, move to the storage to transfer
 		else{
 			creep.moveTo(storage, {reusePath: 15});
 			creep.transferEnergy(storage);

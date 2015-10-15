@@ -13,7 +13,16 @@ var linkerFunc = require("linker");
 var creepWork = require("creep");
 var mining = require("mining");
 var roadworkerFunc = require("roadworker");
+var cpuUsage = require("cpuUsage");
+var energyLog = require("logThisEveryTick");
+var controllerStatus = require("controllerStatus");
 
+energyLog();
+if(Game.time%60==0){
+    cpuUsage();
+    controllerStatus();
+}
+//Spawner
 hooks();
 for(var name in Memory.creeps){
     if(!Game.creeps[name]){
@@ -35,13 +44,13 @@ if(Memory.bots.transporter.length < 1){
 if(Memory.bots.upgrader.length < 3){
     autospawn.createUpgrader();
 }
-if(Memory.bots.builder.length < 2){
+if(Memory.bots.builder.length < 0){
     autospawn.createBuilder();
 }
 if(Memory.bots.janitor.length < 1){
     autospawn.createJanitor();
 }
-if(Memory.bots.repairer.length < 1){
+if(Memory.bots.repairer.length < 0){
     autospawn.createRepairer();
 }
 if(Memory.bots.shuttle.length < 1){
@@ -106,10 +115,16 @@ for (var name in Game.creeps) {
 //link transfer
 let linkFrom = Game.spawns.Spawn1.room.lookForAt('structure', 42, 11)[0];
 let linkTo = Game.spawns.Spawn1.room.lookForAt('structure', 15, 34)[0];
-if(linkFrom){
+if(linkFrom.energy === linkFrom.energyCapacity){
     linkFrom.transferEnergy(linkTo);
 }
+
+//Miner to flag 
 let storageConfig = {x:15, y:36};
 let config = {miningFlag:"FlagBottom", minerCount:1, courierCount:1, destRoom:"E19S2", storage:storageConfig};
 
 mining (config);
+
+//trackers
+
+

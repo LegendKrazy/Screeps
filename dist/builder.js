@@ -22,14 +22,24 @@ module.exports = function(creep){
     	   creep.moveTo(constructionSites, {reusePath: 15});
     	   creep.build(constructionSites);
         }else{
-            let structures = creep.room.find(FIND_MY_STRUCTURES, {filter: function(s){
+            let ramparts = creep.room.find(FIND_MY_STRUCTURES, {filter: function(s){
             var IS_MY_STRUCTURE = s.owner !== undefined && s.owner.username === 'LegendKrazy';
-            var HAS_LOW_HEALTH = s.hits < (s.hitsMax * 0.30);
+            var HAS_LOW_HEALTH = s.hits < (s.hitsMax * 0.25);
             return (s.structureType == STRUCTURE_RAMPART || IS_MY_STRUCTURE) && HAS_LOW_HEALTH;
         }});
-            if(structures.length > 0){
-                creep.moveTo(structures[0], {reusePath: 15});
-                creep.repair(structures[0]);
+            if(ramparts.length > 0){
+                creep.moveTo(ramparts[0], {reusePath: 15});
+                creep.repair(ramparts[0]);
+            }else{
+                let structures = creep.pos.findClosestByRange(FIND_STRUCTURES, {filter: function(s) {
+                    var IS_MY_STRUCTURE = s.owner !== undefined && s.owner.username === 'LegendKrazy';
+                    var HAS_LOW_HEALTH = s.hits < (s.hitsMax * 0.001);
+                    return (s.structureType == STRUCTURE_WALL || IS_MY_STRUCTURE) && HAS_LOW_HEALTH;
+                }});
+                if(structures){
+                    creep.moveTo(structures, {reusePath: 15});
+                    creep.repair(structures);
+                }
             }
         }
     }

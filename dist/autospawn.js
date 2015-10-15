@@ -17,23 +17,15 @@ var spawnType = {
     },
     createTransporter: function(){
         var success = false;
-        if(energyAvailable >= 1550){
-            success = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE],{role: 'transporter', modulo: Memory.transporters});
+        
+        if(energyAvailable >= 1000){
+            success = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE],{role: 'transporter', modulo: Memory.transporters});
         }
-        else if(energyAvailable >= 1400){
-            success = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE],{role: 'transporter', modulo: Memory.transporters});
-        }
-        else if(energyAvailable >= 1300){
-            success = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE],{role: 'transporter', modulo: Memory.transporters});
-        }
-        else if(energyAvailable >= 1200){
-            success = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE],{role: 'transporter', modulo: Memory.transporters});
-        }
-        else if(energyAvailable >= 1000){
+        else if(energyAvailable >= 950){
             success = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE],{role: 'transporter', modulo: Memory.transporters});
         }
-        else if(energyAvailable >= 900){
-            success = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE],{role: 'transporter', modulo: Memory.transporters});
+        else if(energyAvailable >= 850){
+            success = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE],{role: 'transporter', modulo: Memory.transporters});
         }
         else if(energyAvailable >= 700){
             success = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE],{role: 'transporter', modulo: Memory.transporters});
@@ -86,10 +78,7 @@ var spawnType = {
     },
     createJanitor: function(){
         var success = false;
-        if(energyAvailable >= 750){
-            success = spawn.createCreep([MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY],{role: 'janitor'});
-        }
-        else if(energyAvailable >= 600){
+        if(energyAvailable >= 500){
             success = spawn.createCreep([MOVE,MOVE,MOVE,MOVE,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY],{role: 'janitor'});
         }
         else if(energyAvailable >= 300){
