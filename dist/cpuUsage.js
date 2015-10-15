@@ -17,8 +17,8 @@ module.exports = function() {
     }
     average = average/Memory.cpuAverage.length;
     average = +average.toFixed(2);
-    console.log('CPU average usage: '+average+'ms/tick');
+    Memory.stats.cpuPerTick = average;
     
     let cpu = Game.getUsedCpu();
-Memory.cpuAverage.push(Game.getUsedCpu() - cpu);
+    Memory.cpuAverage.push(Game.getUsedCpu() - cpu);
 };

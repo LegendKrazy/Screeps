@@ -10,6 +10,12 @@ module.exports = function logThisEveryTick() {
 	if(Memory.stats.energyTicks === undefined){
 		Memory.stats.energyTicks = [];
 	}
+	if(Memory.stats.averageEnergy100 === undefined){
+		Memory.stats.averageEnergy100 = [];
+	}
+	if(Memory.stats.ept === undefined){
+		Memory.stats.ept = []
+	}
 	//	add the current energy to the list of previous energies
 	if(Memory.stats.energyTicks.length < 100){
 		let spawn = Game.spawns.Spawn1;
@@ -27,8 +33,9 @@ module.exports = function logThisEveryTick() {
 		let energySum100 = _.sum(Memory.stats.energyTicks);
 		let energyLength = Memory.stats.energyTicks.length;
 		let average = energySum100/energyLength;
-		console.log("Energy Average: "+average);
-		console.log(energyPerSec+" Energy Per Tick");
+		Memory.stats.averageEnergy100 = average;
+		Memory.stats.ept = energyPerSec;
+		
 	}
 	
 };

@@ -18,8 +18,8 @@ var energyLog = require("logThisEveryTick");
 var controllerStatus = require("controllerStatus");
 
 energyLog();
+cpuUsage();
 if(Game.time%60==0){
-    cpuUsage();
     controllerStatus();
 }
 //Spawner
