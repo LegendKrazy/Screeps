@@ -13,118 +13,151 @@ var linkerFunc = require("linker");
 var creepWork = require("creep");
 var mining = require("mining");
 var roadworkerFunc = require("roadworker");
-var cpuUsage = require("cpuUsage");
 var energyLog = require("logThisEveryTick");
 var controllerStatus = require("controllerStatus");
+var scoutFunc = require("scout");
 
-energyLog();
-cpuUsage();
-if(Game.time%60==0){
-    controllerStatus();
-}
-//Spawner
-hooks();
-for(var name in Memory.creeps){
-    if(!Game.creeps[name]){
-        delete Memory.creeps[name];
+module.exports.loop = function () {
+    if (Game.cpuLimit < 500) {
+        console.log('CPU Limit: ' + Game.cpuLimit);
+        Game.notify('CPU Limit: ' + Game.cpuLimit + "CPU used last tick: " + Memory.cpuAverage[Memory.cpuAverage.length - 1], 0);
     }
-}
-for(var name in Game.creeps){
-    let creep = Game.creeps[name];
-    if (creep.memory.role) {
-        Memory.bots[creep.memory.role].push(creep.id);
+    if (!Memory.cpuAverage) {
+        Memory.cpuAverage = [];
     }
-}  
-if(Memory.bots.miner.length < 1){
-    autospawn.createMiner();
-}
-if(Memory.bots.transporter.length < 1){
-    autospawn.createTransporter();
-}
-if(Memory.bots.upgrader.length < 3){
-    autospawn.createUpgrader();
-}
-if(Memory.bots.builder.length < 0){
-    autospawn.createBuilder();
-}
-if(Memory.bots.janitor.length < 1){
-    autospawn.createJanitor();
-}
-if(Memory.bots.repairer.length < 0){
-    autospawn.createRepairer();
-}
-if(Memory.bots.shuttle.length < 1){
-    autospawn.createShuttle();
-}
-if(Memory.bots.defender.length < 0){
-    autospawn.createDefender();
-}
-if(Memory.bots.linker.length < 1){
-    autospawn.createLinker();
-}
-if(Memory.bots.roadworker.length < 1){
-    autospawn.createRoadworker();
-}
+    if (Memory.cpuAverage.length > 2000) {
+        Memory.cpuAverage.shift();
+    }
+    let average = 0;
+    for (let i in Memory.cpuAverage) {
+        average += Memory.cpuAverage[i];
+    }
+    average = average / Memory.cpuAverage.length;
+    average = +average.toFixed(2);
+    Memory.stats.cpuPerTick = average;
 
+    let cpu = Game.getUsedCpu();
 
-let spawn = Game.spawns.Spawn1;
-let sources = spawn.room.find(FIND_SOURCES);
+    //Spawner
+    hooks();
+    for (var name in Memory.creeps) {
+        if (!Game.creeps[name]) {
+            delete Memory.creeps[name];
+        }
+    }
+    for (var name in Game.creeps) {
+        let creep = Game.creeps[name];
+        if (creep.memory.role) {
+            Memory.bots[creep.memory.role].push(creep.id);
+        }
+    }
+    if (Memory.bots.miner.length < 1) {
+        autospawn.createMiner();
+    }
+    if (Memory.bots.transporter.length < 1) {
+        autospawn.createTransporter();
+    }
+    if (Memory.bots.upgrader.length < 4) {
+        autospawn.createUpgrader();
+    }
+    if (Memory.bots.builder.length < 1) {
+        autospawn.createBuilder();
+    }
+    if (Memory.bots.janitor.length < 1) {
+        autospawn.createJanitor();
+    }
+    if (Memory.bots.repairer.length < 0) {
+        autospawn.createRepairer();
+    }
+    if (Memory.bots.shuttle.length < 1) {
+        autospawn.createShuttle();
+    }
+    if (Memory.bots.defender.length < 0) {
+        autospawn.createDefender();
+    }
+    if (Memory.bots.linker.length < 1) {
+        autospawn.createLinker();
+    }
+    if (Memory.bots.roadworker.length < 1) {
+        autospawn.createRoadworker();
+    }
+    if (Memory.bots.scout.length < 0) {
+        autospawn.createScout();
+    }
 
-if(Memory.miners >= sources.length){
-    Memory.miners = 0;
-}
-if(Memory.transporters >= Memory.bots.miner.length){
-    Memory.transporters = 0;
-}
-for (var name in Game.creeps) {
-    let creep = Game.creeps[name];
-    let role = creep.memory.role;
+    let spawn = Game.spawns.Spawn1;
+    let sources = spawn.room.find(FIND_SOURCES);
 
-    if(role === 'miner'){
-        minerFunc(creep);
+    if (Memory.miners >= sources.length) {
+        Memory.miners = 0;
     }
-    else if(role === 'transporter'){
-        transporterFunc(creep);
+    if (Memory.transporters >= Memory.bots.miner.length) {
+        Memory.transporters = 0;
     }
-    else if(role === 'builder'){
-        builderFunc(creep);
-    }
-    else if(role === 'upgrader'){
-        upgraderFunc(creep);
-    }
-    else if (role === 'janitor'){
-        janitorFunc(creep);
-    }
-    else if (role === 'repairer'){
-        repairerFunc(creep);
-    }
-    else if (role === 'shuttle'){
-        shuttleFunc(creep);
-    }
-    else if (role === 'defender'){
-        defenderFunc(creep);
-    }
-    else if (role === 'linker'){
-        linkerFunc(creep);
-    }
-    else if (role === 'roadworker'){
-        roadworkerFunc(creep);
-    }
-}
+    for (var name in Game.creeps) {
+        let creep = Game.creeps[name];
+        let role = creep.memory.role;
 
-//link transfer
-let linkFrom = Game.spawns.Spawn1.room.lookForAt('structure', 42, 11)[0];
-let linkTo = Game.spawns.Spawn1.room.lookForAt('structure', 15, 34)[0];
-if(linkFrom.energy === linkFrom.energyCapacity){
-    linkFrom.transferEnergy(linkTo);
-}
+        if (role === 'miner') {
+            minerFunc(creep);
+        }
+        else if (role === 'transporter') {
+            transporterFunc(creep);
+        }
+        else if (role === 'builder') {
+            builderFunc(creep);
+        }
+        else if (role === 'upgrader') {
+            upgraderFunc(creep);
+        }
+        else if (role === 'janitor') {
+            janitorFunc(creep);
+        }
+        else if (role === 'repairer') {
+            repairerFunc(creep);
+        }
+        else if (role === 'shuttle') {
+            shuttleFunc(creep);
+        }
+        else if (role === 'defender') {
+            defenderFunc(creep);
+        }
+        else if (role === 'linker') {
+            linkerFunc(creep);
+        }
+        else if (role === 'roadworker') {
+            roadworkerFunc(creep);
+        }
+        else if (role === 'scout') {
+            scoutFunc(creep);
+        }
+    }
 
-//Miner to flag 
-let storageConfig = {x:15, y:36};
-let config = {miningFlag:"FlagBottom", minerCount:1, courierCount:1, destRoom:"E19S2", storage:storageConfig};
+    //link transfer
+    let linkFrom = Game.spawns.Spawn1.room.lookForAt('structure', 42, 11)[0];
+    let linkTo = Game.spawns.Spawn1.room.lookForAt('structure', 15, 34)[0];
+    if (linkFrom.energy === linkFrom.energyCapacity) {
+        linkFrom.transferEnergy(linkTo);
+    }
 
-mining (config);
+    //Miner to flag 
+    let storageConfig = {
+        x: 15,
+        y: 36
+    };
+    let config = {
+        miningFlag: "FlagBottom",
+        minerCount: 1,
+        courierCount: 1,
+        destRoom: "E19S2",
+        storage: storageConfig
+    };
 
-//trackers
-
-
+    mining(config);
+    
+    //energyLog();
+    if (Game.time % 300 == 0) {
+        controllerStatus();
+    }
+    Memory.cpuAverage.push(Game.getUsedCpu() - cpu);
+};

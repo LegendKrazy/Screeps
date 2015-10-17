@@ -71,7 +71,7 @@ module.exports = function (config) {
     //    Memory.miningConfig[flag.name].courierSpotList = findSpotForCourier(Memory.miningConfig[flag.name].minerSpotList);
     function findFreeSpawn(roomName) {
 	return _.filter(Game.spawns, function (spawn) {return spawn.room.name == roomName && spawn.spawning == null;});
-    };
+    }
 
     function calculateMinerBody(spawn) {
         if (spawn.room.energyCapacityAvailable < 550) return [MOVE, WORK, WORK, CARRY];
@@ -102,8 +102,8 @@ module.exports = function (config) {
             return [MOVE, MOVE, MOVE, MOVE, MOVE,
                     CARRY, CARRY, CARRY, CARRY, CARRY];
 	return [ MOVE, MOVE, MOVE ,MOVE ,MOVE, MOVE, MOVE, MOVE ,MOVE,
-                 CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY];;
-    };
+                 CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY];
+    }
     function spawnCourier(courierLocation, sourcePos) {
 	var spawn = findFreeSpawn(destRoom.name);
 	if (spawn.length) {
@@ -144,14 +144,14 @@ module.exports = function (config) {
         if (target)
             creep.pickup(target);
 
-    };
+    }
 
 
     function countCourier() {
 	return _.filter(courierIDList, function (courierID) {
 	    return Game.creeps[courierID] != undefined;
 	}).length;
-    };
+    }
 
     courierIDList = _.filter(courierIDList, function (courierName) { return Game.creeps[courierName];});
     minerIDList = _.filter(minerIDList, function (courierName) { return Game.creeps[courierName];});
@@ -169,14 +169,14 @@ module.exports = function (config) {
 	if (_.isString(result)) {
 	    storedConfig.courierIDList.push(result);
 	}
-    };
+    }
     if (minerIDList.length < config.minerCount) {
         let result = spawnMiner(miningPos, flag, hasEnergy);
 	if (_.isString(result)) {
 	    storedConfig.minerIDList.push(result);
 	}
 
-    };
+    }
 
 
     _.forEach(courierIDList, function myself(courierName,i) {

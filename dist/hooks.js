@@ -9,6 +9,7 @@ module.exports = function(){
         shuttle: [],
         defender: [],
         linker: [],
-        roadworker: []
+        roadworker: [],
+        scout: []
     };
 };
