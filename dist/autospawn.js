@@ -82,14 +82,14 @@ var spawnType = {
     },
     createUpgrader: function () {
         var success = false;
-        /*if(energyAvailable >= 1400){
-            success = spawn.createCreep([MOVE,MOVE,MOVE,CARRY,CARRY,CARRY,CARRY,CARRY,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK],{role: 'upgrader'});
+        if(energyAvailable >= 1400){
+            success = spawn.createCreep([MOVE,CARRY,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK],{role: 'upgrader'});
         }
         else if(energyAvailable >= 1000){
-            success = spawn.createCreep([MOVE,MOVE,MOVE,CARRY,CARRY,CARRY,CARRY,CARRY,WORK,WORK,WORK,WORK,WORK,WORK],{role: 'upgrader'});
-        } */
-        if (energyAvailable >= 650) {
-            success = spawn.createCreep([MOVE, MOVE, MOVE, CARRY, CARRY, WORK, WORK, WORK, WORK], {
+            success = spawn.createCreep([MOVE,CARRY,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK],{role: 'upgrader'});
+        }
+        if (energyAvailable >= 600) {
+            success = spawn.createCreep([MOVE,CARRY,WORK,WORK,WORK,WORK,WORK], {
                 role: 'upgrader'
             });
         }
@@ -126,7 +126,12 @@ var spawnType = {
     },
     createShuttle: function () {
         var success = false;
-        if (energyAvailable >= 650) {
+        if (energyAvailable >= 800) {
+            success = spawn.createCreep([CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,CARRY,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE,MOVE], {
+                role: 'shuttle'
+            });
+        }
+        else if (energyAvailable >= 650) {
             success = spawn.createCreep([CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, CARRY, MOVE, MOVE, MOVE, MOVE, MOVE, MOVE], {
                 role: 'shuttle'
             });
@@ -175,8 +180,8 @@ var spawnType = {
     },
     createLinker: function () {
         var success = false;
-        if (energyAvailable >= 300) {
-            success = spawn.createCreep([MOVE, CARRY, CARRY, CARRY, CARRY, CARRY], {
+        if (energyAvailable >= 100) {
+            success = spawn.createCreep([MOVE, CARRY, CARRY], {
                 role: 'linker'
             });
         }
@@ -207,8 +212,8 @@ var spawnType = {
     },
     createScout: function () {
         var success = false;
-        if (energyAvailable >= 280) {
-            success = spawn.createCreep([MOVE,MOVE,MOVE,MOVE,ATTACK], {
+        if (energyAvailable >= 150) {
+            success = spawn.createCreep([MOVE,MOVE,ATTACK], {
                 role: 'scout'
             });
         }

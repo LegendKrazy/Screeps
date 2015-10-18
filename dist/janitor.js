@@ -22,8 +22,14 @@ module.exports = function (creep) {
     }
 
     if (creep.memory.state === 'pickup') {
+        let spawn = Game.spawns.Spawn1;
+        let suicideEnergy = spawn.pos.findClosestByRange(FIND_DROPPED_ENERGY);
         let droppedEnergy = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
-        if (droppedEnergy) {
+        if(suicideEnergy){
+            creep.moveTo(suicideEnergy, {reusePathP: 15});
+            creep.pickup(suicideEnergy);
+        }
+        else if (droppedEnergy) {
             creep.moveTo(droppedEnergy, {
                 reusePath: 15
             });
