@@ -82,14 +82,14 @@ var spawnType = {
     },
     createUpgrader: function () {
         var success = false;
-        if(energyAvailable >= 1400){
-            success = spawn.createCreep([MOVE,CARRY,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK],{role: 'upgrader'});
+        if(energyAvailable >= 1500){
+            success = spawn.createCreep([MOVE,MOVE,CARRY,CARRY,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK],{role: 'upgrader'});
         }
-        else if(energyAvailable >= 1000){
-            success = spawn.createCreep([MOVE,CARRY,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK],{role: 'upgrader'});
+        else if(energyAvailable >= 1050){
+            success = spawn.createCreep([MOVE,MOVE,CARRY,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK,WORK],{role: 'upgrader'});
         }
-        if (energyAvailable >= 600) {
-            success = spawn.createCreep([MOVE,CARRY,WORK,WORK,WORK,WORK,WORK], {
+        else if (energyAvailable >= 650) {
+            success = spawn.createCreep([MOVE,MOVE,CARRY,WORK,WORK,WORK,WORK,WORK], {
                 role: 'upgrader'
             });
         }

@@ -57,7 +57,7 @@ module.exports.loop = function () {
     if (Memory.bots.transporter.length < 1) {
         autospawn.createTransporter();
     }
-    if (Memory.bots.upgrader.length < 5) {
+    if (Memory.bots.upgrader.length < 6) {
         autospawn.createUpgrader();
     }
     if (Memory.bots.builder.length < 0) {
